@@ -5,6 +5,7 @@ echo "https://$GH_TOKEN:@github.com" > .git/credentials
 git remote add live https://github.com/t0yv0/t0yv0.github.io.git
 git config user.name "TravisCI"
 git config user.email "anton.tayanovskyy@gmail.com"
-git add .
+git checkout master
+git add . *.html
 git commit -am 'CI build'
 git push -u live master
