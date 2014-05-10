@@ -1,0 +1,22 @@
+
+name:                t0yv0
+version:             0.1.0.0
+synopsis:            Homepage
+homepage:            http://t0yv0.github.io
+license:             Apache-2.0
+license-file:        LICENSE
+author:              Anton Tayanovskyy
+maintainer:          anton.tayanovskyy@gmail.com
+build-type:          Simple
+cabal-version:       >=1.8
+
+Executable main
+  main-is:		Main.hs
+  build-depends:	base ==4.6.*, blaze-html ==0.7.*, blaze-markup ==0.6.*
+
+Test-Suite tests
+  type:			exitcode-stdio-1.0
+  main-is:              Main.hs
+  build-depends:	base ==4.6.*, blaze-html ==0.7.*, blaze-markup ==0.6.*
+
+
