@@ -8,4 +8,4 @@ git config user.email "anton.tayanovskyy@gmail.com"
 git checkout master
 git add . *.html
 git commit -am 'CI build'
-git push -u live master
+git push -f -u live master
