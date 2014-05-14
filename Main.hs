@@ -1,21 +1,23 @@
- {-# LANGUAGE OverloadedStrings #-}
+{-# OPTIONS -Wall #-}
+{-# LANGUAGE OverloadedStrings #-}
 
-import Control.Monad (forM_)
+--import Control.Monad (forM_)
 import Text.Blaze.Html5
 import Text.Blaze.Html5.Attributes
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 import qualified Text.Blaze.Html.Renderer.String as S
 
-block name body =
-  H.div ! class_ name $ do
-    body
+block :: String -> Html -> Html
+block clName blBody = H.div ! class_ (toValue clName) $ blBody
 
+space :: Html
 space = t " "
 
 linkTo :: String -> String -> Html
 linkTo text url = a (toHtml text) ! href (toValue url)
 
+about :: Html
 about = do
   t "My work focuses on developing"
   space
@@ -31,6 +33,7 @@ about = do
 t :: String -> Html
 t = toHtml
 
+contact :: Html
 contact = do
   linkTo "Twitter" "http://twitter.com/t0yv0"
   t " - "
@@ -43,6 +46,7 @@ contact = do
 email :: String
 email = "anton.tayanovskyy@gmail.com"
 
+home :: Html
 home =  
   page "HomePage" $
     block "container" $ do
@@ -54,18 +58,32 @@ home =
       block "row" $ do
         block "col-sm-8" about
         block "col-sm-4" contact
+      vskip
       block "row" $ do
         block "col-sm-8" homeContent
 
-homeContent = do
-  h2 "Projects"
-  projects
-  h2 "Interests"
-  interests
-  h2 "Skills"
-  skills
+data Tab = Tab { tabLabel :: String, tabHash :: String, tabBody :: Html }
+data Tabs = Tabs [Tab]
 
-projects = do
+tabs :: Tabs -> Html
+tabs (Tabs ts) = do
+  ul ! class_ "nav nav-tabs" $ sequence_ [ tHeader j ta | (j, ta) <- zip ns ts ]
+  H.div ! class_ "tab-content" $ sequence_ [ tBody j ta | (j, ta) <- zip ns ts ]
+  where
+    ns :: [Int]
+    ns = [1..]
+    tHeader j ta =
+      liTag j (linkTo (tabLabel ta) (tabHash ta) ! dataAttribute "toggle" "tab") where
+      liTag 1 = li ! class_ "active"
+      liTag _ = li
+    tBody j ta = pane j ! A.id (toValue $ drop 1 $ tabHash ta) $ do
+      vskip
+      tabBody ta
+    pane 1 = H.div ! class_ "tab-pane active"
+    pane _ = H.div ! class_ "tab-pane"
+
+projectsTab :: Tab
+projectsTab = Tab "Projects" "#projects" $ do
   ul $ do
     li $ do
       linkTo "WebSharper" "http://github.com/intellifactory/websharper"
@@ -89,20 +107,64 @@ projects = do
       t " such as messaging transport, "
       t " Azure hosting, embedding WebSharper."
 
-interests = do
+vskip :: Html
+vskip = H.div ! A.style "height: 1em" $ return ()
+
+servicesTab :: Tab
+servicesTab = Tab "Services" "#services" $ do
+  p $ do
+    t "I am deeply familiar with F# and have \
+      \succesfully helped clients in both \
+      \industry and academia to"
+  ul $ do
+    li $ t "optimize F# code"
+    li $ t "optimize WebSharper/JS code"
+    li $ t "develop interactive visualizations for scientific software (biology)"
+  p $ do
+    t "As it turns out, a surprising number of problems reduces \
+        \neatly to building a proper domain-specific language or \
+        \defining custom optimization/rewrite rules for a compiler. "
+  p $ do
+    t "While most of my current work is with IntelliFactory where we are using F# \
+        \on CLR and JavaScript via WebSharper, "
+    t "I explore small projects in"
+  ul $ do
+    li $ t "computer-aided theorem proving (Coq)"
+    li $ t "functional programming (Haskell, OCaml, Racket)"
+    li $ t "statistics and data science (R)"
+  p $ do
+    t "I also have an Economics MA which included \
+      \training in statistics."
+  p $ do
+    t "If it sounds like I could help you with your project, let us talk. \
+      \I do contract work in both consultant and developer roles."
+
+talksTab :: Tab
+talksTab = Tab "Talks" "#talks" $ do
+  t "TBC.."
+
+linksTab :: Tab
+linksTab = Tab "Links" "#links" $ do
+  t "TBC.."
+
+interestsTab :: Tab
+interestsTab = Tab "Interests" "#interests" $ do
   t "Broadly, I am interested in making computers do more to "
   t "replace error-prone and labor-intensive manual practices, "
   t "such as verifying low-level programs, optimizing by hand, "
   t "or translating existing code between runtimes and languages."
 
-skills = do
-  t "Most of my work is with F# on .NET and WebSharper/JavaScript, "
-  t "but I explore small projects in a number of related areas."
-  ul $ do
-    li $ t "Computer-aided theorem proving (Coq)"
-    li $ t "Functional programming (Haskell, OCaml, Racket)"
-    li $ t "Statistics and data science (R)"
+homeContent :: Html
+homeContent =
+  tabs $ Tabs $ [
+    projectsTab,
+    servicesTab,
+    talksTab,
+    interestsTab,
+    linksTab
+  ]
 
+main :: IO ()
 main = do
   putStrLn "Writing index.html.."
   writeFile "index.html" (S.renderHtml home)
@@ -117,10 +179,10 @@ js :: String -> Html
 js url = H.script "" ! src (H.toValue url) ! A.type_ "text/javascript"
 
 page :: String -> Html -> Html
-page title bodyContent =
+page pTitle bodyContent =
   docTypeHtml $ do
     H.head $ do
-      H.title (H.toHtml title)
+      H.title (H.toHtml pTitle)
       H.meta ! httpEquiv "X-UA-Compatible" ! content "IE-edge"
       H.meta ! name "viewport" ! content "width=device-width, initial-scale=1"
       css (bootstrapLink "/css/bootstrap.min.css")
