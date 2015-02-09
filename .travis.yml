@@ -1,8 +1,0 @@
-language: haskell
-notifications:
-  email: false
-env:
-  global:
-    secure: Wt7ybe151dq+72UaszrqSAWEd+eY04+hM6wkm2M2A4gOA7LCyqxOLSMArAJdvidTWSM0F1uXwISJ4upsS2c6xPJrupEhutk4ZOifLMBh71EgNnP1wb01ZQS2LQeXgENVbsy6YSuGEf9T/mDyc8TGnO1o1GQsl+JFxzE/WnuEmAU=
-after_success:
-  - "bash deploy.sh"
