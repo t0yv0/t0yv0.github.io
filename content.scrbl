@@ -28,8 +28,8 @@ Links:
 @itemlist[
 
 @item{@hyperlink["http://mitpress.mit.edu/sicp/"]{SICP} - the
-venerable classic textbook has pointers to almost everything you need
-to know about computing.}
+venerable classic has pointers to almost everything you need to know
+about computing.}
 
 @item{@hyperlink["http://okmij.org/ftp/"]{Oleg's site} is a bottomless
 treasure trove of ideas.}
