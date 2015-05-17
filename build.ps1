@@ -21,7 +21,6 @@ function cleanFiles() {
 }
 
 function buildSite() {
-    cleanFiles
     echo '==> building..'
     ghc --make -threaded site.hs
     ./site.exe build
@@ -34,6 +33,12 @@ function buildSite() {
 
 if ($args[0] -eq 'clean') {
     cleanFiles
+} elseif ($args[0] -eq 'site') {
+    buildSite
+} elseif ($args[0] -eq 'watch') {
+    buildSite
+    ./site.exe watch
 } else {
+    cleanFiles
     buildSite
 }

@@ -30,7 +30,7 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
-    match "posts/*" $ do
+    match "posts/*.markdown" $ do
         route $ setExtension "html"
         compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
