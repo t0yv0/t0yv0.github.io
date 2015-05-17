@@ -15,7 +15,6 @@ function cleanFiles() {
     clearPath atom.xml
     clearPath about.html
     clearPath archive.html
-    clearPath contact.html
     rm posts/*.html
     clearPath site.exe
 }
