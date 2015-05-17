@@ -1,23 +1,27 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+
 import           Data.Monoid (mappend)
 import           Hakyll
-import qualified Data.Set as S
 import           Text.Pandoc.Options
+import qualified Data.Set as S
 
---------------------------------------------------------------------------------
+removeSrcRoute = customRoute (removeSrc . toFilePath) where
+    removeSrc ('s':'r':'c':'-':rest) = rest
+    removeSrc s = s
+
 main :: IO ()
 main = hakyll $ do
+
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "css/*" $ do
-        route   idRoute
+    match "src-css/*" $ do
+        route   removeSrcRoute
         compile compressCssCompiler
 
-    match "css/Skeleton-2.0.4/css/*" $ do
-        route   idRoute
+    match "src-css/Skeleton-2.0.4/css/*" $ do
+        route   removeSrcRoute
         compile compressCssCompiler
 
     match (fromList ["about.rst", "contact.markdown"]) $ do
@@ -56,8 +60,8 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-    match "index.html" $ do
-        route idRoute
+    match "src-index.html" $ do
+        route removeSrcRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
@@ -92,7 +96,6 @@ myFeedConfiguration = FeedConfiguration
     , feedRoot        = "http://t0yv0.github.io"
     }
     
---------------------------------------------------------------------------------
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`

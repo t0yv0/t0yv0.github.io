@@ -2,4 +2,11 @@
 *.o
 _cache
 _site
+about.html
+archive.html
+atom.xml
+contact.html
+css/
+index.html
+posts/*.html
 site.exe
