@@ -2,6 +2,7 @@
 title: About
 ---
 
+
 [F#][fsharp] engineer, problem-solving addict, pragmatist.  Most known
 for contributions to the [WebSharper][ws] F#-to-JavaScript compiler.
 
