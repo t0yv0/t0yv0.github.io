@@ -1,0 +1,26 @@
+#+TITLE: Windows Survival Guide
+#+AUTHOR: t0yv0
+
+Making Windows into a convenient dev environment takes work. Here are
+some tips that I am finding useful.
+
+* Essentials
+
+| [[http://chocolatey.org/][Chocolatey]] | useful to install Windows-specific packages                                                |
+| [[http://conemu.github.io/][ConEmu]]     | replaces default terminal with something usable                                            |
+| [[http://msys2.github.io/][msys2]]      | brings a POSIX subsystem with ~bash~, ~pacman~, ~git~, ~emacs~ and other familiar software |
+
+* PowerShell
+
+Do edit ~$Profile~ to customize the shell.
+
+Make command history work:
+
+    : Import-Module PSReadLine
+    : Set-PSReadlineOption -EditMode Emacs
+
+* SSH
+
+For the client tools, use ~msys2~ (~pacman -S openssh~). It is
+theoretically possible to run ~sshd~ from ~msys2~, but I find it
+easier to use [[https://www.bitvise.com/ssh-server][winsshd]].
