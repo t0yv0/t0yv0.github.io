@@ -1,0 +1,15 @@
+* about
+
+My name is Anton. You can reach me on these networks:
+
+[[https://vmst.io/@t0yv0][Mastodon]] [[https://github.com/t0yv0][GitHub]] [[https://www.linkedin.com/in/t0yv0/][LinkedIn]] [[https://www.facebook.com/atayanovskyy][Facebook]]
+
+You can also use plain old [[mailto:anton.tayanovskyy@gmail.com][email]].
+
+I have been doing software work for a long time. It never get stale.
+
+Computers and people who wield them continue to fascinate me and broaden my horizons.
+
+These pages are to contain software notes, both work and hobby-related.
+
+My younger self kept a [[https://t0yv0.github.io/about.html][blog]] elsewhere.

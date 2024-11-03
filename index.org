@@ -1,0 +1,39 @@
+* git-spice
+<2024-11-02 Sat>
+
+[[https://abhinav.github.io/git-spice/][git-spice]] is really well made, as you would expect from [[https://github.com/abhinav][abhinav]]. I had a pleasure of trying this out at work this week.
+
+What problem does this tool solve?
+
+Suppose you are on a distributed remote-first software team. Things are going great, you have colleagues from Europe,
+U.S. and Australia, and you have the benefit of diverse perspectives. But then things succeed. Things get a little busy.
+Pull requests start piling up in the review pile.
+
+How do you proceed with your software work? If you need to make a lot of changes, some of them inter-dependent. Waiting
+for each change to be reviewed is harder if your reviewers are in a different time zone. Submitting a very large pull
+request makes it harder on your reviewers.
+
+Here is where stacked pull requests are really handy. Work at your own pace, submit small dependent increments in bulk
+for review. However, once you start receiving feedback, you are in for rebase work.
+
+Here is where git-spice really shines.
+
+~gs stack restack~ and all your branches are rebased.
+
+~gs stack submit~ and all your pull requests are up-to-date with your changes.
+
+Amazing!
+
+Is it a keeper? Possibly. There is one remaining challenge, some GitHub repositories I am working with are setup to
+squash merge. They also tend to have very long-running CI times and GitHub merge queues are likely coming. This is a
+known documented limitation:
+
+https://abhinav.github.io/git-spice/guide/limits/#squash-merges-restack-the-upstack
+
+Looks like some further work could be done to enable the ideal workflow: once all the pull requests are approved, submit
+them all to the merge queue and never worry about them again unless CI finds issues.
+
+
+-----
+
+file:about.org
