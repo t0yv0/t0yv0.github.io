@@ -36,4 +36,4 @@ them all to the merge queue and never worry about them again unless CI finds iss
 
 -----
 
-file:index.org :: file:about.org
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]

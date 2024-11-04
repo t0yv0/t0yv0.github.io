@@ -3,6 +3,8 @@
           (("org"
             :org-src-fontify-natively t
             :base-directory "~/code/t0yv0.github.io/"
+            :base-extension "org"
+            :recursive t
             :publishing-function org-html-publish-to-html
             :publishing-directory "~/code/t0yv0.github.io/"
             :html-postamble nil

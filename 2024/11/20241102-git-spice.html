@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-11-03 Sun 20:07 -->
+<!-- 2024-11-03 Sun 20:40 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -197,67 +197,74 @@
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-org8662835" class="outline-2">
-<h2 id="org8662835">Torn slices in Go that defy intuition</h2>
-<div class="outline-text-2" id="text-org8662835">
+<div id="outline-container-org37e7422" class="outline-2">
+<h2 id="org37e7422">git-spice</h2>
+<div class="outline-text-2" id="text-org37e7422">
 <p>
-<span class="timestamp-wrapper"><span class="timestamp">&lt;2024-11-03 Sun&gt;</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2024-11-02 Sat&gt;</span></span>
 </p>
 
 <p>
-There is a very strange Go slice that identifies with <code>nil</code> and yet has a non-zero length. This slice made an appearance
-in a prod system and really made everybody's day.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-go">var xs []int
-
-if len(xs) == 1 &amp;&amp; xs == nil {
-      panic("This is impossible, right?")
-}
-</pre>
-</div>
-
-<p>
-<a href="https://github.com/pulumi/pulumi/issues/11727#issuecomment-1373883493">Reference</a> ticket.
+<a href="https://abhinav.github.io/git-spice/">git-spice</a> is really well made, as you would expect from <a href="https://github.com/abhinav">abhinav</a>. I had a pleasure of trying this out at work this week.
 </p>
 
 <p>
-What is happening under the hood?
+What problem does this tool solve?
 </p>
 
 <p>
-A Go slice is a struct-like structure, somewhat like this:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-go">type s struct {
-      array *ptr
-      offset int
-      length int
-}
-</pre>
-</div>
-
-<p>
-Now, <code>xs == nil</code> should not have been possible for a struct-like structure but is so common it must have been included
-for convenience. What it actually desugars to is <code>xs.array == nil</code>.
+Suppose you are on a distributed remote-first software team. Things are going great, you have colleagues from Europe,
+U.S. and Australia, and you have the benefit of diverse perspectives. But then things succeed. Things get a little busy.
+Pull requests start piling up in the review pile.
 </p>
 
 <p>
-When memory is shared across goroutines in a data race, one goroutine can modify the array pointer and make it nil. At
-the same time the length data remains non-zero to the confusion of another goroutine.
+How do you proceed with your software work? If you need to make a lot of changes, some of them inter-dependent. Waiting
+for each change to be reviewed is harder if your reviewers are in a different time zone. Submitting a very large pull
+request makes it harder on your reviewers.
 </p>
 
 <p>
-Clojure is having an I-told-you-so moment. Concurrency and mutable state do not mix well together.
+Here is where stacked pull requests are really handy. Work at your own pace, submit small dependent increments in bulk
+for review. However, once you start receiving feedback, you are in for rebase work.
+</p>
+
+<p>
+Here is where git-spice really shines.
+</p>
+
+<p>
+<code>gs stack restack</code> and all your branches are rebased.
+</p>
+
+<p>
+<code>gs stack submit</code> and all your pull requests are up-to-date with your changes.
+</p>
+
+<p>
+Amazing!
+</p>
+
+<p>
+Is it a keeper? Possibly. There is one remaining challenge, some GitHub repositories I am working with are setup to
+squash merge. They also tend to have very long-running CI times and GitHub merge queues are likely coming. This is a
+known documented limitation:
+</p>
+
+<p>
+<a href="https://abhinav.github.io/git-spice/guide/limits/#squash-merges-restack-the-upstack">https://abhinav.github.io/git-spice/guide/limits/#squash-merges-restack-the-upstack</a>
+</p>
+
+<p>
+Looks like some further work could be done to enable the ideal workflow: once all the pull requests are approved, submit
+them all to the merge queue and never worry about them again unless CI finds issues.
 </p>
 
 
 <hr />
 
 <p>
-<a href="index.html">index.html</a> :: <a href="about.html">about.html</a>
+<a href="../../index.html">index</a> :: <a href="../../about.html">about</a>
 </p>
 </div>
 </div>

@@ -37,4 +37,4 @@ Clojure is having an I-told-you-so moment. Concurrency and mutable state do not 
 
 -----
 
-file:index.org :: file:about.org
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]

@@ -1,9 +1,8 @@
 * 2024
 ** Nov
-- [[file:20241103-torn-slices.org][Torn slices in Go that defy intuition]]
-- [[file:20241102-git-spice.org][git-spice]]
-
+- [[file:2024/11/20241103-torn-slices.org][Torn slices in Go that defy intuition]]
+- [[file:2024/11/20241102-git-spice.org][git-spice]]
 
 -----
 
-file:about.org
+[[file:about.org][about]]
