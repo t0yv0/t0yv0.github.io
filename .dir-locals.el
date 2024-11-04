@@ -1,6 +1,7 @@
 ((nil . ((org-publish-project-alist
           .
           (("org"
+            :org-src-fontify-natively t
             :base-directory "~/code/t0yv0.github.io/"
             :publishing-function org-html-publish-to-html
             :publishing-directory "~/code/t0yv0.github.io/"
