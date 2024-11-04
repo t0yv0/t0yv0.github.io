@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-11-03 Sun 20:29 -->
+<!-- 2024-11-03 Sun 20:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -197,25 +197,68 @@
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-org39859dd" class="outline-2">
-<h2 id="org39859dd">2024</h2>
-<div class="outline-text-2" id="text-org39859dd">
+<div id="outline-container-org8662835" class="outline-2">
+<h2 id="org8662835">Torn slices in Go that defy intuition</h2>
+<div class="outline-text-2" id="text-org8662835">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2024-11-03 Sun&gt;</span></span>
+</p>
+
+<p>
+There is a very strange Go slice that identifies with <code>nil</code> and yet has a non-zero length. This slice made an appearance
+in a prod system and really made everybody's day.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">var xs []int
+
+if len(xs) == 1 &amp;&amp; xs == nil {
+      panic("This is impossible, right?")
+}
+</pre>
 </div>
-<div id="outline-container-org2c28572" class="outline-3">
-<h3 id="org2c28572">Nov</h3>
-<div class="outline-text-3" id="text-org2c28572">
-<ul class="org-ul">
-<li><a href="20241103-torn-slices.html">Torn slices in Go that defy intuition</a></li>
-<li><a href="20241102-git-spice.html">git-spice</a></li>
-</ul>
+
+<p>
+<a href="https://github.com/pulumi/pulumi/issues/11727#issuecomment-1373883493">Reference</a> ticket.
+</p>
+
+<p>
+What is happening under the hood?
+</p>
+
+<p>
+A Go slice is a struct-like structure, somewhat like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">type s struct {
+      array *ptr
+      offset int
+      length int
+}
+</pre>
+</div>
+
+<p>
+Now, <code>xs == nil</code> should not have been possible for a struct-like structure but is so common it must have been included
+for convenience. What it actually desugars to is <code>xs.array == nil</code>.
+</p>
+
+<p>
+When memory is shared across goroutines in a data race, one goroutine can modify the array pointer and make it nil. At
+the same time the length data remains non-zero to the confusion of another goroutine.
+</p>
+
+<p>
+Clojure is having an I-told-you-so moment. Concurrency and mutable state do not mix well together.
+</p>
 
 
 <hr />
 
 <p>
-<a href="about.html">about.html</a>
+<a href="index.html">index.html</a> :: <a href="about.html">about.html</a>
 </p>
-</div>
 </div>
 </div>
 </div>

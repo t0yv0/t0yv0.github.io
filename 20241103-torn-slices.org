@@ -1,0 +1,40 @@
+* Torn slices in Go that defy intuition
+<2024-11-03 Sun>
+
+There is a very strange Go slice that identifies with ~nil~ and yet has a non-zero length. This slice made an appearance
+in a prod system and really made everybody's day.
+
+#+begin_src go
+  var xs []int
+
+  if len(xs) == 1 && xs == nil {
+	panic("This is impossible, right?")
+  }
+#+end_src
+
+[[https://github.com/pulumi/pulumi/issues/11727#issuecomment-1373883493][Reference]] ticket.
+
+What is happening under the hood?
+
+A Go slice is a struct-like structure, somewhat like this:
+
+#+begin_src go
+  type s struct {
+        array *ptr
+        offset int
+        length int
+  }
+#+end_src
+
+Now, ~xs == nil~ should not have been possible for a struct-like structure but is so common it must have been included
+for convenience. What it actually desugars to is ~xs.array == nil~.
+
+When memory is shared across goroutines in a data race, one goroutine can modify the array pointer and make it nil. At
+the same time the length data remains non-zero to the confusion of another goroutine.
+
+Clojure is having an I-told-you-so moment. Concurrency and mutable state do not mix well together.
+
+
+-----
+
+file:index.org :: file:about.org
