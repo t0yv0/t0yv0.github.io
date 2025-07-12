@@ -1,0 +1,30 @@
+* llm
+<2025-07-11 Fri>
+
+I have been using Large Language Models a lot more aggressively at work. There are two scenarios that seem to work
+really well at the moment:
+
+- replacing web search (Google, Stack Overflow)
+- filling out function bodies from signatures (like [[https://hackage.haskell.org/package/djinn][djinn]] but for languages du jour)
+- finding my way around repositories I am not familiar with using [[https://www.anthropic.com/claude-code][claude-code]]
+
+Is there any positive impact on productivity? Too early to tell. Major time sinks for me are navigating legacy code and
+debugging complicated state machines these days.
+
+What has really gotten a boost is prototyping. In the latest company hackathon I was able to accomplish a lot more than
+is reasonable by both using Claude as a coding tool and embedding Claude in the final code to perform simple
+code-generation tasks on demand as part of the functionality.
+
+[[https://simonwillison.net][Simon Wilison]] has expressed a balanced opinion that these tools are very useful, while the hype around replacing humans
+at their jobs or achieving AGI any time soon is likely unwarranted. This resonates with me so far.
+
+[[https://github.com/karthink/gptel/][gptel]] has been very nice to bring Claude closer to my preferred computing environment in Emacs. While web search [[https://github.com/karthink/gptel/issues/937][is not
+yet supported]] there is a nice workaround for Anthropic specifically that lets me use it already as of today.
+
+Deploying and monitoring LLMs as decision makers in any sort of meaningful control plane sounds really intriguing and
+fraught with peril, from security to reliability pitfalls. I have not had a chance to do so yet but am watching the
+space closely.
+
+-----
+
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]
