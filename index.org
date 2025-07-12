@@ -1,6 +1,6 @@
 * 2024
 ** Jul
-- [[file:2025/11/20250711-llm.org][LLM]]
+- [[file:2025/07/20250711-llm.org::*llm][llm]]
 * 2024
 ** Nov
 - [[file:2024/11/20241103-torn-slices.org][Torn slices in Go that defy intuition]]
