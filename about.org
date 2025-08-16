@@ -10,6 +10,6 @@ I have been doing software work for a long time. It never get stale.
 
 Computers and people who wield them continue to fascinate me and broaden my horizons.
 
-These pages are to contain software notes, both work and hobby-related.
+These pages host software notes, both work and hobby-related.
 
-My younger self kept a [[https://t0yv0.github.io/about.html][blog]] elsewhere.
+My younger self kept a [[https://t0yv0.blogspot.com][blog]] elsewhere.
