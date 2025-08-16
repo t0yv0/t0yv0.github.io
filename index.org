@@ -1,11 +1,8 @@
-* 2025
-** Jul
-- [[file:2025/07/20250711-llm.org::*llm][llm]]
-* 2024
-** Nov
-- [[file:2024/11/20241103-torn-slices.org][Torn slices in Go that defy intuition]]
-- [[file:2024/11/20241102-git-spice.org][git-spice]]
+* Anton's Weblog
+
+- [[file:2025/07/20250711-llm.org][llm]] <2025-07-11 Fri>
+- [[file:2024/11/20241103-torn-slices.org][Torn slices in Go that defy intuition]] <2024-11-03 Sun>
+- [[file:2024/11/20241102-git-spice.org][git-spice]] <2024-11-02 Sat>
 
 -----
-
 [[file:about.org][about]]
