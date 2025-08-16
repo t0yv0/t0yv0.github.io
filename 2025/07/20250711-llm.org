@@ -15,8 +15,8 @@ What has really gotten a boost is prototyping. In the latest company hackathon I
 is reasonable by both using Claude as a coding tool and embedding Claude in the final code to perform simple
 code-generation tasks on demand as part of the functionality.
 
-[[https://simonwillison.net][Simon Wilison]] has expressed a balanced opinion that these tools are very useful, while the hype around replacing humans
-at their jobs or achieving AGI any time soon is likely unwarranted. This resonates with me so far.
+[[https://simonwillison.net][Simon Willison]] has expressed a balanced opinion that these tools are very useful, while the hype around replacing
+humans at their jobs or achieving AGI any time soon is likely unwarranted. This resonates with me so far.
 
 [[https://github.com/karthink/gptel/][gptel]] has been very nice to bring Claude closer to my preferred computing environment in Emacs. While web search [[https://github.com/karthink/gptel/issues/937][is not
 yet supported]] there is a nice workaround for Anthropic specifically that lets me use it already as of today.
