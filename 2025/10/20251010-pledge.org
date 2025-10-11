@@ -1,0 +1,36 @@
+* no llm in writing pledge
+<2025-10-10 Fri>
+
+I decided to avoid using LLMs or AI assistance for writing.
+
+This applies to blogs, LinkedIn, design documents, peer performance reviews at work, or any place where the intent of
+the writing is to either communicate a message clearly or to use writing as a medium to clarify and shape thinking.
+
+Exceptions are still possible for me in these cases:
+
+- collecting secondary source references
+- boring technical details of a reference nature
+
+There is an excellent upcoming article from [[https://www.linkedin.com/in/thoward37/][Troy Howard]] on the importance of an editorial mindset in today's
+information-overloaded age. Editors help authors preserve their voice while also connecting to the audience so that the
+intended purpose of the communication is accomplished. While Troy is actually actively exploring LLM-assisted writing
+that puts the author in an editorial role, I have concluded that my own purposes in communicating are better served
+preserving the raw verbal output as is. Including typos, confused grammar, and other trappings inevitable with my
+background.
+
+This may be a strange position coming from someone who is very aggressively leaning into LLMs for production code.
+After exploring F#, and later Haskell and Scala and various advanced programming techniques I have concluded that
+production code is just not a good medium for ideas or preserving voice. It is fair game to outsource to chatbots. I am
+still experimenting with technique and may refine this with some nuanced exceptions possibly for hand-crafting data
+models and types.
+
+Writing though is very different.
+
+The world of work is increasingly noisy and lacking authenticity and a human touch. What about being original? What of
+having ideas that are worth having? Or maintaining the ability to manipulate advanced concepts and make connections.
+All these things hold intrinsic value for me and all of them are linked to writing. That is too precious to "touch up"
+and delegate to the machine.
+
+-----
+
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]
