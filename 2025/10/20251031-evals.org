@@ -113,9 +113,9 @@ Uncertainty is a fact of life in these systems and *finding out precise answers*
 impractical. Teams need to find balance, and engineers can borrow a trick or two from the data science / MLE
 discipline:
 
-- avoid scale as long as possible by break down the system into smaller prompts with fewer test each
+- avoid scale as long as possible by breaking down the system into smaller prompts with fewer test each
 - accept uncertainty when your application or circumstances allow it
-- use high number of trials and/or examples to scoring pass/fail and summing up benchmark scores to reduce variance
+- use higher number of trials and/or examples to score as pass/fail and sum them to reduce variance
 - manage lifecycle to test at a cadence you can afford
 
 
