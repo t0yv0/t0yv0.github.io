@@ -23,7 +23,7 @@ Suppose engineers have a test suite and when testing a change they want to have 
 they want to have a 90% chance of not being distracted by random failures unrelated to the change. How reliable should
 each test be if we have N independent test? A bit of napkin math:
 
-  #+begin_src python
+  #+begin_src python :exports both
 
     # p_fail(p, N) < 0.1
     # 1 - (1 - p) ** N < 0.1
@@ -58,7 +58,35 @@ The relevant tools here are the [[https://mathworld.wolfram.com/ChebyshevInequal
 
 TLDR form a little AI-assist session targeting 90% confidence levels:
 
-#+begin_src shell :results output verbatim
+#+begin_src shell :exports both
+
+    # p_fail(p, N) < 0.1
+    # 1 - (1 - p) ** N < 0.1
+    # (1 - p) ** N > 0.9
+    # log[ (1-p) ** N ] > log 0.9
+    # log[1 - p] > log 0.9 / N
+    # 1 - p > exp (log 0.9 / N)
+    # p > 1 - exp (log 0.9 / N)
+
+    import math
+
+    def f(N):
+        return 1 - math.exp(math.log(0.9) / N)
+
+    return [(N, f(N)) for N in [16, 32, 64, 128, 256, 512, 1024]]
+  #+end_src
+
+  #+RESULTS:
+
+ This is absolutely brutal - if you want to have 1024 tests each test needs to fail with ~p~ less than ~0.0001~.
+
+** how many trials are needed to establish reliability with confidence
+
+The relevant tools here are the [[https://mathworld.wolfram.com/ChebyshevInequality.html][Chebyshev inequality]], or perhaps the less conservative [[https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval][Wilson score interval]].
+
+TLDR form a little AI-assist session targeting 90% confidence levels:
+
+#+begin_src shell :exports both
 According to Chebyshev inequality, if you want p ≤ 0.0001 and observe 0 failures:
 - Need roughly *N > 10,000,000* tests
 - This gives you confidence that p ≤ 0.0001
@@ -69,7 +97,7 @@ With Wilson at 90% confidence, you need roughly *30,000 test runs with 0 failure
 These numbers are much higher than 10. If your engineers say "we tested this 10 times and it looks fine", you very well
 may be accepting an unreliable test into the codebase.
 
-** retires do not do what you think
+** retries do not do what you think
 
 As the test suite grows, the engineers complain about "flaky" tests. Eventually someone comes up with a brilliant idea
 of retrying them. Let us work through this for a moment.
@@ -85,7 +113,34 @@ What happens with LLM-based software?
 On the surface, it is great at making tests increase reliability rapidly. Take a test with a true success probability
 of ~p=0.9~ and retry it 3 times and you get a test with ~p=0.999~. Magic!
 
-#+begin_src python
+#+begin_src python :exports both
+According to Chebyshev inequality, if you want p ≤ 0.0001 and observe 0 failures:
+- Need roughly *N > 10,000,000* tests
+- This gives you confidence that p ≤ 0.0001
+
+With Wilson at 90% confidence, you need roughly *30,000 test runs with 0 failures* to be confident the true failure rate is ≤ 0.0001.
+#+end_src
+
+These numbers are much higher than 10. If your engineers say "we tested this 10 times and it looks fine", you very well
+may be accepting an unreliable test into the codebase.
+
+** retries do not do what you think
+
+As the test suite grows, the engineers complain about "flaky" tests. Eventually someone comes up with a brilliant idea
+of retrying them. Let us work through this for a moment.
+
+In enterprise software retrying flaky tests is sometimes quite acceptable. Perhaps you have deterministic tests without
+fully faked dependencies, such as tests relying on integrations to third-party SAAS products as is often the case these
+days. You are confident that your own software is deterministic. In this situation, retrying a flaky test avoids
+spending attention on availability blips in the third-party vendor. NOTE the key take-away here is that non-determinism
+is not part of your system under test here.
+
+What happens with LLM-based software?
+
+On the surface, it is great at making tests increase reliability rapidly. Take a test with a true success probability
+of ~p=0.9~ and retry it 3 times and you get a test with ~p=0.999~. Magic!
+
+#+begin_src python :exports both
   import math
   return 1 - math.pow(1 - 0.9, 3)
 #+end_src
