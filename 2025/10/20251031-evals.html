@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-10-31 Fri 12:41 -->
+<!-- 2025-10-31 Fri 12:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -311,41 +311,6 @@ This is absolutely brutal - if you want to have 1024 tests each test needs to fa
 </p>
 </div>
 </div>
-<div id="outline-container-org8fad365" class="outline-3">
-<h3 id="org8fad365">how many trials are needed to establish reliability with confidence</h3>
-<div class="outline-text-3" id="text-org8fad365">
-<p>
-The relevant tools here are the <a href="https://mathworld.wolfram.com/ChebyshevInequality.html">Chebyshev inequality</a>, or perhaps the less conservative <a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval">Wilson score interval</a>.
-</p>
-
-<p>
-TLDR form a little AI-assist session targeting 90% confidence levels:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-shell">
-<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">p_fail(p, N) &lt; 0.1
-</span><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">1 - (1 - p) ** N &lt; 0.1
-</span><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">(1 - p) ** N &gt; 0.9
-</span><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">log[ (1-p) ** N ] &gt; log 0.9
-</span><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">log[1 - p] &gt; log 0.9 / N
-</span><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">1 - p &gt; exp (log 0.9 / N)
-</span><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">p &gt; 1 - exp (log 0.9 / N)
-</span>
-import math
-
-def f(N):
-    <span style="font-weight: bold;">return</span> 1 - math.exp(math.log(0.9) / N)
-
-<span style="font-weight: bold;">return</span> [(N, f(N)) <span style="font-weight: bold;">for</span> N<span style="font-weight: bold;"> in</span> [16, 32, 64, 128, 256, 512, 1024]]
-</pre>
-</div>
-
-<p>
-This is absolutely brutal - if you want to have 1024 tests each test needs to fail with <code>p</code> less than <code>0.0001</code>.
-</p>
-</div>
-</div>
 <div id="outline-container-org3aee35f" class="outline-3">
 <h3 id="org3aee35f">how many trials are needed to establish reliability with confidence</h3>
 <div class="outline-text-3" id="text-org3aee35f">
@@ -364,46 +329,6 @@ TLDR form a little AI-assist session targeting 90% confidence levels:
 
 With Wilson at 90% confidence, you need roughly *30,000 test runs with 0 failures*
 to be confident the true failure rate is &#8804; 0.0001.
-</pre>
-</div>
-
-<p>
-These numbers are much higher than 10. If your engineers say "we tested this 10 times and it looks fine", you very well
-may be accepting an unreliable test into the codebase.
-</p>
-</div>
-</div>
-<div id="outline-container-orgadf8b64" class="outline-3">
-<h3 id="orgadf8b64">retries do not do what you think</h3>
-<div class="outline-text-3" id="text-orgadf8b64">
-<p>
-As the test suite grows, the engineers complain about "flaky" tests. Eventually someone comes up with a brilliant idea
-of retrying them. Let us work through this for a moment.
-</p>
-
-<p>
-In enterprise software retrying flaky tests is sometimes quite acceptable. Perhaps you have deterministic tests without
-fully faked dependencies, such as tests relying on integrations to third-party SAAS products as is often the case these
-days. You are confident that your own software is deterministic. In this situation, retrying a flaky test avoids
-spending attention on availability blips in the third-party vendor. NOTE the key take-away here is that non-determinism
-is not part of your system under test here.
-</p>
-
-<p>
-What happens with LLM-based software?
-</p>
-
-<p>
-On the surface, it is great at making tests increase reliability rapidly. Take a test with a true success probability
-of <code>p=0.9</code> and retry it 3 times and you get a test with <code>p=0.999</code>. Magic!
-</p>
-
-<div class="org-src-container">
-<pre class="src src-python">According to Chebyshev inequality, <span style="font-weight: bold;">if</span> you want p &#8804; 0.0001 <span style="font-weight: bold;">and</span> observe 0 failures:
-- Need roughly *N &gt; 10,000,000* tests
-- This gives you confidence that p &#8804; 0.0001
-
-With Wilson at 90% confidence, you need roughly *30,000 test runs <span style="font-weight: bold;">with</span> 0 failures* to be confident the true failure rate <span style="font-weight: bold;">is</span> &#8804; 0.0001.
 </pre>
 </div>
 
