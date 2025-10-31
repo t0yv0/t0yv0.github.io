@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-10-31 Fri 12:39 -->
+<!-- 2025-10-31 Fri 12:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -311,9 +311,9 @@ This is absolutely brutal - if you want to have 1024 tests each test needs to fa
 </p>
 </div>
 </div>
-<div id="outline-container-orgbf42d42" class="outline-3">
-<h3 id="orgbf42d42">how many trials are needed to establish reliability with confidence</h3>
-<div class="outline-text-3" id="text-orgbf42d42">
+<div id="outline-container-org8fad365" class="outline-3">
+<h3 id="org8fad365">how many trials are needed to establish reliability with confidence</h3>
+<div class="outline-text-3" id="text-org8fad365">
 <p>
 The relevant tools here are the <a href="https://mathworld.wolfram.com/ChebyshevInequality.html">Chebyshev inequality</a>, or perhaps the less conservative <a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval">Wilson score interval</a>.
 </p>
@@ -346,9 +346,9 @@ This is absolutely brutal - if you want to have 1024 tests each test needs to fa
 </p>
 </div>
 </div>
-<div id="outline-container-org8fad365" class="outline-3">
-<h3 id="org8fad365">how many trials are needed to establish reliability with confidence</h3>
-<div class="outline-text-3" id="text-org8fad365">
+<div id="outline-container-org3aee35f" class="outline-3">
+<h3 id="org3aee35f">how many trials are needed to establish reliability with confidence</h3>
+<div class="outline-text-3" id="text-org3aee35f">
 <p>
 The relevant tools here are the <a href="https://mathworld.wolfram.com/ChebyshevInequality.html">Chebyshev inequality</a>, or perhaps the less conservative <a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval">Wilson score interval</a>.
 </p>
@@ -362,7 +362,8 @@ TLDR form a little AI-assist session targeting 90% confidence levels:
 - Need roughly *N &gt; 10,000,000* tests
 - This gives you confidence that p &#8804; 0.0001
 
-With Wilson at 90% confidence, you need roughly *30,000 test runs with 0 failures* to be confident the true failure rate is &#8804; 0.0001.
+With Wilson at 90% confidence, you need roughly *30,000 test runs with 0 failures*
+to be confident the true failure rate is &#8804; 0.0001.
 </pre>
 </div>
 
@@ -372,9 +373,9 @@ may be accepting an unreliable test into the codebase.
 </p>
 </div>
 </div>
-<div id="outline-container-org67ef5ff" class="outline-3">
-<h3 id="org67ef5ff">retries do not do what you think</h3>
-<div class="outline-text-3" id="text-org67ef5ff">
+<div id="outline-container-orgadf8b64" class="outline-3">
+<h3 id="orgadf8b64">retries do not do what you think</h3>
+<div class="outline-text-3" id="text-orgadf8b64">
 <p>
 As the test suite grows, the engineers complain about "flaky" tests. Eventually someone comes up with a brilliant idea
 of retrying them. Let us work through this for a moment.
@@ -412,9 +413,9 @@ may be accepting an unreliable test into the codebase.
 </p>
 </div>
 </div>
-<div id="outline-container-orgadf8b64" class="outline-3">
-<h3 id="orgadf8b64">retries do not do what you think</h3>
-<div class="outline-text-3" id="text-orgadf8b64">
+<div id="outline-container-org2e70fec" class="outline-3">
+<h3 id="org2e70fec">retries do not do what you think</h3>
+<div class="outline-text-3" id="text-org2e70fec">
 <p>
 As the test suite grows, the engineers complain about "flaky" tests. Eventually someone comes up with a brilliant idea
 of retrying them. Let us work through this for a moment.
