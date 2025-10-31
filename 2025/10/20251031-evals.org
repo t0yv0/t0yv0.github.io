@@ -1,0 +1,123 @@
+* evals are not flaky tests
+<2025-10-31 Fri>
+
+Testing LLM-based software with traditional SDLC approaches is a bad idea. Evals are unlike flaky tests in many
+important ways. Scaling laws are brutal. Software engineering instincts stop applying even at modest scales.
+
+** pass or fail is an estimator
+
+If you are testing an agent the key system under test is an LLM and some prompts and tools. The system is
+non-deterministic. Not only that, the non-determinism is key and intrinsic to what this is doing.
+
+Unlike a traditional deterministic software test, a passing test does not prove that "it gets it right".
+
+What is more helpful is thinking about testing as building an estimator for an unknown quantity ~p~. A biased coin toss
+comes to mind. Suppose the system gets a pass with a probability ~p~. Running a test N times and averaging results
+gives you an estimate ~p_hat~ of the true value ~p~.
+
+Crucially it is easy to fool oneself and decide that a test is reliable because ~p_hat~ is high where true ~p~ is low.
+
+** reliability scales very poorly with the number of tests
+
+Suppose engineers have a test suite and when testing a change they want to have a good time. Specifically let us say
+they want to have a 90% chance of not being distracted by random failures unrelated to the change. How reliable should
+each test be if we have N independent test? A bit of napkin math:
+
+  #+begin_src python
+
+    # p_fail(p, N) < 0.1
+    # 1 - (1 - p) ** N < 0.1
+    # (1 - p) ** N > 0.9
+    # log[ (1-p) ** N ] > log 0.9
+    # log[1 - p] > log 0.9 / N
+    # 1 - p > exp (log 0.9 / N)
+    # p > 1 - exp (log 0.9 / N)
+
+    import math
+
+    def f(N):
+        return 1 - math.exp(math.log(0.9) / N)
+
+    return [(N, f(N)) for N in [16, 32, 64, 128, 256, 512, 1024]]
+  #+end_src
+
+  #+RESULTS:
+  |   16 |   0.006563398416385313 |
+  |   32 |  0.0032871017270746927 |
+  |   64 |  0.0016449037176575754 |
+  |  128 |  0.0008227903508094547 |
+  |  256 | 0.00041147983323130966 |
+  |  512 | 0.00020576108542780247 |
+  | 1024 | 0.00010288583546147478 |
+
+ This is absolutely brutal - if you want to have 1024 tests each test needs to fail with ~p~ less than ~0.0001~.
+
+** how many trials are needed to establish reliability with confidence
+
+The relevant tools here are the [[https://mathworld.wolfram.com/ChebyshevInequality.html][Chebyshev inequality]], or perhaps the less conservative [[https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval][Wilson score interval]].
+
+TLDR form a little AI-assist session targeting 90% confidence levels:
+
+#+begin_src shell :results output verbatim
+According to Chebyshev inequality, if you want p ≤ 0.0001 and observe 0 failures:
+- Need roughly *N > 10,000,000* tests
+- This gives you confidence that p ≤ 0.0001
+
+With Wilson at 90% confidence, you need roughly *30,000 test runs with 0 failures* to be confident the true failure rate is ≤ 0.0001.
+#+end_src
+
+These numbers are much higher than 10. If your engineers say "we tested this 10 times and it looks fine", you very well
+may be accepting an unreliable test into the codebase.
+
+** retires do not do what you think
+
+As the test suite grows, the engineers complain about "flaky" tests. Eventually someone comes up with a brilliant idea
+of retrying them. Let us work through this for a moment.
+
+In enterprise software retrying flaky tests is sometimes quite acceptable. Perhaps you have deterministic tests without
+fully faked dependencies, such as tests relying on integrations to third-party SAAS products as is often the case these
+days. You are confident that your own software is deterministic. In this situation, retrying a flaky test avoids
+spending attention on availability blips in the third-party vendor. NOTE the key take-away here is that non-determinism
+is not part of your system under test here.
+
+What happens with LLM-based software?
+
+On the surface, it is great at making tests increase reliability rapidly. Take a test with a true success probability
+of ~p=0.9~ and retry it 3 times and you get a test with ~p=0.999~. Magic!
+
+#+begin_src python
+  import math
+  return 1 - math.pow(1 - 0.9, 3)
+#+end_src
+
+#+RESULTS:
+: 0.999
+
+However, such magic comes at a price. If there is in fact a change to your prompts or system behavior that regresses
+the true probability of success from 0.9 to 0.5, the retried test still passes 0.875 of the time. There is a very high
+chance that the test will flake up only after the engineers have introduced it to the codebase, and finding which
+commit is responsible is going to be non-trivial exercise.
+
+** what can practitioners do
+
+If you do retry these "flaky" tests and truly want to know what regresses them, perhaps auto-detecting these and automating
+bisection and repeated evaluation at high ~N~ to establish which commit is at fault could work.
+
+If you do not retry these "flaky" tests then any newly introduced tests should pass a high ~N~. Engineers are not going
+to have time to do this so automating this suggests itself.
+
+I do not know that either is practical though.
+
+Uncertainty is a fact of life in these systems and *finding out precise answers* is just very expensive and sometimes
+impractical. Teams need to find balance, and engineers can borrow a trick or two from the data science / MLE
+discipline:
+
+- avoid scale as long as possible by break down the system into smaller prompts with fewer test each
+- accept uncertainty when your application or circumstances allow it
+- use high number of trials and/or examples to scoring pass/fail and summing up benchmark scores to reduce variance
+- manage lifecycle to test at a cadence you can afford
+
+
+-----
+
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]

@@ -1,5 +1,6 @@
 * Anton's Weblog
 
+- [[file:2025/10/20251031-evals.org][evals are not flaky tests]] <2025-10-31 Fri>
 - [[file:2025/10/20251010-pledge.org][no llm in writing pledge]] <2025-10-10 Fri>
 - [[file:2025/07/20250711-llm.org][llm]] <2025-07-11 Fri>
 - [[file:2024/11/20241103-torn-slices.org][Torn slices in Go that defy intuition]] <2024-11-03 Sun>
