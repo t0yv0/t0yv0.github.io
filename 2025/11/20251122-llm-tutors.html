@@ -194,24 +194,169 @@
   .org-svg { }
 </style>
 <link rel="stylesheet" href="/css/skeleton.min.css" type="text/css"/>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-orgdffa970" class="outline-2">
-<h2 id="orgdffa970">Anton's Weblog</h2>
-<div class="outline-text-2" id="text-orgdffa970">
+<div id="outline-container-org0a5006e" class="outline-2">
+<h2 id="org0a5006e">llm tutors</h2>
+<div class="outline-text-2" id="text-org0a5006e">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2025-11-22 Sat&gt;</span></span>
+</p>
+
+<p>
+Great results today using Claude as a tutor. Setup:
+</p>
+
 <ul class="org-ul">
-<li><a href="2025/11/20251122-llm-tutors.html">llm tutors</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-11-22 Sat&gt;</span></span></li>
-<li><a href="2025/10/20251031-evals.html">evals are not flaky tests</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-10-31 Fri&gt;</span></span></li>
-<li><a href="2025/10/20251010-pledge.html">no llm in writing pledge</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-10-10 Fri&gt;</span></span></li>
-<li><a href="2025/07/20250711-llm.html">llm</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-07-11 Fri&gt;</span></span></li>
-<li><a href="2024/11/20241103-torn-slices.html">Torn slices in Go that defy intuition</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-11-03 Sun&gt;</span></span></li>
-<li><a href="2024/11/20241102-git-spice.html">git-spice</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-11-02 Sat&gt;</span></span></li>
+<li>A Coursera class Differential Equations for Engineers</li>
+<li>Emacs</li>
+<li>Claude</li>
+<li>gptel</li>
+<li>LaTeX</li>
 </ul>
 
-<hr />
 <p>
-<a href="about.html">about</a>
+I am solving exercises in an org-mode notebook with wonderful formula preview, and Claude is able to double-check or
+proof-read those quite easily.
+</p>
+
+<p>
+A sample session follows.
+</p>
+
+<p>
+\[ \lim_{w \to w0} \frac{ \cos{wt} - \cos{w_0 t} }{ w_0^2 - w^2 } = ? \]
+</p>
+
+
+<p>
+We have:
+</p>
+
+<p>
+\[ w_0^2 - w^2 = (w_0 - w) (w_0 + w) \]
+</p>
+
+
+<p>
+\[ \lim_{w \to w0} \frac{ \cos{wt} - \cos{w_0 t} }{ w_0^2 - w^2 } = \frac{ \lim_{w \to w0} \frac{\cos{wt} - \cos{w_0 t}}{w_o - w} }{2w} \]
+</p>
+
+
+<p>
+\[ \lim_{w \to w0} \frac{\cos{wt} - \cos{w_0 t}}{w_o - w} = ? \]
+</p>
+
+
+<p>
+How would you solve this? Give me a hint.
+</p>
+
+
+<p>
+Looking at your limit:
+</p>
+
+<p>
+\[\lim_{w \to w_0} \frac{\cos{wt} - \cos{w_0 t}}{w_0 - w}\]
+</p>
+
+<p>
+<b>Hint</b>: This is the definition of a derivative!
+</p>
+
+<p>
+Specifically, if you let \(f(w) = \cos(wt)\), then this limit is asking for \(-f'(w_0)\) (note the negative sign because of \(w_0 - w\) in the denominator instead of \(w - w_0\)).
+</p>
+
+<p>
+So you need to:
+</p>
+<ol class="org-ol">
+<li>Find the derivative of \(\cos(wt)\) with respect to \(w\)</li>
+<li>Evaluate it at \(w = w_0\)</li>
+<li>Don't forget the negative sign</li>
+</ol>
+
+<p>
+What's \(\frac{d}{dw}[\cos(wt)]\)?
+</p>
+
+<p>
+Using chain rule:
+</p>
+
+<p>
+\[ f(g(x))' = f'(g(x)) g'(x) \]
+</p>
+
+<p>
+\[ \frac{d}{dw}[\cos(wt)] = - t sin(wt) \]
+</p>
+
+<p>
+\[ -f'(w_0) = t sin(w_0 t) \]
+</p>
+
+
+<p>
+So we get:
+</p>
+
+<p>
+\[ \lim_{w \to w_0} \frac{\cos{wt} - \cos{w_0 t}}{w_0 - w} = t sin(w_0 t) \]
+</p>
+
+
+<p>
+And finally:
+</p>
+
+<p>
+\[ \lim_{w \to w0} \frac{ \cos{wt} - \cos{w_0 t} }{ w_0^2 - w^2 } = \frac{t sin(w_0 t)}{2w_0} \]
+</p>
+
+<p>
+Is this correct?
+</p>
+
+<hr />
+
+<p>
+<a href="../../index.html">index</a> :: <a href="../../about.html">about</a>
 </p>
 </div>
 </div>

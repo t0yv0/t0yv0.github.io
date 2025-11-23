@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-10-31 Fri 12:49 -->
+<!-- 2025-11-22 Sat 22:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -197,9 +197,9 @@
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-orgf36956d" class="outline-2">
-<h2 id="orgf36956d">evals are not flaky tests</h2>
-<div class="outline-text-2" id="text-orgf36956d">
+<div id="outline-container-orgfbd373b" class="outline-2">
+<h2 id="orgfbd373b">evals are not flaky tests</h2>
+<div class="outline-text-2" id="text-orgfbd373b">
 <p>
 <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-10-31 Fri&gt;</span></span>
 </p>
@@ -209,9 +209,9 @@ Testing LLM-based software with traditional SDLC approaches is a bad idea. Evals
 important ways. Scaling laws are brutal. Software engineering instincts stop applying even at modest scales.
 </p>
 </div>
-<div id="outline-container-org7245140" class="outline-3">
-<h3 id="org7245140">pass or fail is an estimator</h3>
-<div class="outline-text-3" id="text-org7245140">
+<div id="outline-container-org4e272d3" class="outline-3">
+<h3 id="org4e272d3">pass or fail is an estimator</h3>
+<div class="outline-text-3" id="text-org4e272d3">
 <p>
 If you are testing an agent the key system under test is an LLM and some prompts and tools. The system is
 non-deterministic. Not only that, the non-determinism is key and intrinsic to what this is doing.
@@ -232,9 +232,9 @@ Crucially it is easy to fool oneself and decide that a test is reliable because 
 </p>
 </div>
 </div>
-<div id="outline-container-orgadc36b3" class="outline-3">
-<h3 id="orgadc36b3">reliability scales very poorly with the number of tests</h3>
-<div class="outline-text-3" id="text-orgadc36b3">
+<div id="outline-container-orgfd03642" class="outline-3">
+<h3 id="orgfd03642">reliability scales very poorly with the number of tests</h3>
+<div class="outline-text-3" id="text-orgfd03642">
 <p>
 Suppose engineers have a test suite and when testing a change they want to have a good time. Specifically let us say
 they want to have a 90% chance of not being distracted by random failures unrelated to the change. How reliable should
@@ -311,9 +311,9 @@ This is absolutely brutal - if you want to have 1024 tests each test needs to fa
 </p>
 </div>
 </div>
-<div id="outline-container-org3aee35f" class="outline-3">
-<h3 id="org3aee35f">how many trials are needed to establish reliability with confidence</h3>
-<div class="outline-text-3" id="text-org3aee35f">
+<div id="outline-container-orgf306836" class="outline-3">
+<h3 id="orgf306836">how many trials are needed to establish reliability with confidence</h3>
+<div class="outline-text-3" id="text-orgf306836">
 <p>
 The relevant tools here are the <a href="https://mathworld.wolfram.com/ChebyshevInequality.html">Chebyshev inequality</a>, or perhaps the less conservative <a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval">Wilson score interval</a>.
 </p>
@@ -338,9 +338,9 @@ may be accepting an unreliable test into the codebase.
 </p>
 </div>
 </div>
-<div id="outline-container-org2e70fec" class="outline-3">
-<h3 id="org2e70fec">retries do not do what you think</h3>
-<div class="outline-text-3" id="text-org2e70fec">
+<div id="outline-container-orgc90047e" class="outline-3">
+<h3 id="orgc90047e">retries do not do what you think</h3>
+<div class="outline-text-3" id="text-orgc90047e">
 <p>
 As the test suite grows, the engineers complain about "flaky" tests. Eventually someone comes up with a brilliant idea
 of retrying them. Let us work through this for a moment.
@@ -382,9 +382,9 @@ commit is responsible is going to be non-trivial exercise.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd0266a8" class="outline-3">
-<h3 id="orgd0266a8">what can practitioners do</h3>
-<div class="outline-text-3" id="text-orgd0266a8">
+<div id="outline-container-org72d3939" class="outline-3">
+<h3 id="org72d3939">what can practitioners do</h3>
+<div class="outline-text-3" id="text-org72d3939">
 <p>
 If you do retry these "flaky" tests and truly want to know what regresses them, perhaps auto-detecting these and automating
 bisection and repeated evaluation at high <code>N</code> to establish which commit is at fault could work.

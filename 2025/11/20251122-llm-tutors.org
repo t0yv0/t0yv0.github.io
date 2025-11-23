@@ -1,0 +1,71 @@
+* llm tutors
+<2025-11-22 Fri>
+
+Great results today using Claude as a tutor. Setup:
+
+- A Coursera class Differential Equations for Engineers
+- Emacs
+- Claude
+- gptel
+- LaTeX
+
+I am solving exercises in an org-mode notebook with wonderful formula preview, and Claude is able to double-check or
+proof-read those quite easily.
+
+A sample session follows.
+
+$$ \lim_{w \to w0} \frac{ \cos{wt} - \cos{w_0 t} }{ w_0^2 - w^2 } = ? $$
+
+
+We have:
+
+$$ w_0^2 - w^2 = (w_0 - w) (w_0 + w) $$
+
+
+$$ \lim_{w \to w0} \frac{ \cos{wt} - \cos{w_0 t} }{ w_0^2 - w^2 } = \frac{ \lim_{w \to w0} \frac{\cos{wt} - \cos{w_0 t}}{w_o - w} }{2w} $$
+
+
+$$ \lim_{w \to w0} \frac{\cos{wt} - \cos{w_0 t}}{w_o - w} = ? $$
+
+
+How would you solve this? Give me a hint.
+
+
+Looking at your limit:
+
+$$\lim_{w \to w_0} \frac{\cos{wt} - \cos{w_0 t}}{w_0 - w}$$
+
+*Hint*: This is the definition of a derivative!
+
+Specifically, if you let $f(w) = \cos(wt)$, then this limit is asking for $-f'(w_0)$ (note the negative sign because of $w_0 - w$ in the denominator instead of $w - w_0$).
+
+So you need to:
+1. Find the derivative of $\cos(wt)$ with respect to $w$
+2. Evaluate it at $w = w_0$
+3. Don't forget the negative sign
+
+What's $\frac{d}{dw}[\cos(wt)]$?
+
+Using chain rule:
+
+$$ f(g(x))' = f'(g(x)) g'(x) $$
+
+$$ \frac{d}{dw}[\cos(wt)] = - t sin(wt) $$
+
+$$ -f'(w_0) = t sin(w_0 t) $$
+
+
+So we get:
+
+$$ \lim_{w \to w_0} \frac{\cos{wt} - \cos{w_0 t}}{w_0 - w} = t sin(w_0 t) $$
+
+
+And finally:
+
+$$ \lim_{w \to w0} \frac{ \cos{wt} - \cos{w_0 t} }{ w_0^2 - w^2 } = \frac{t sin(w_0 t)}{2w_0} $$
+
+Is this correct?
+
+-----
+
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]
