@@ -1,0 +1,47 @@
+* Book Review: /The Soul of a New Machine/
+<2026-03-07 Sat>
+
+How has the computing industry changed since 1981? /The Soul of a New Machine/ by Tracy Kidder takes the reader into
+the world of an engineering group at Digital Equipment Corporation working very hard to produce a 32-bit computer. A
+remarkable piece of non-fiction. The questions about engineering work culture, motivation in the U.S. corporate context
+have aged well.
+
+Assorted gems:
+
+- Pinball motivation theory: "If you win, the only prize is that you get to play again"
+- Totalitarian commitment to the project, the need to "sign up"
+- Mushroom theory of management: "keep them in the dark, feed them shit, and watch them grow"
+
+Kidder probes gently into the engineers' notion of "purely technical" arguments that let the best idea win. Should such
+arguments be carried out ruthlessly without any regard for hurt relationships? The engineers held on to this belief in
+spite of empirical evidence to the contrary.
+
+Contrasting then and now, an optimistic take is that today some engineers in the U.S. are paid a bit better. Some teams
+communicate better and are more inclusive, and prioritize relationships a bit more.
+
+The fundamental motivational issue is still with us though: technology advances relentlessly. This is a world where it
+takes an extraordinary effort and commitment to produce anything state-of-the-art, and even if you are lucky in having
+your work survive corporate politics and actually get out the door, success only lasts a moment. Is anyone excited and
+afraid today of a 32-bit machine taking over the world?
+
+
+#+BEGIN_QUOTE
+
+“He would bind his team with mutual trust, he had decided. When a person signed up to do a job for him, he would in
+turn trust that person to accomplish it; he wouldn’t break it down into little pieces and make the task small, easy and
+dull.”
+
+“Look, I don’t have to get official recognition for anything I do. Ninety-eight percent of the thrill comes from
+knowing that the thing you designed works, and works almost the way you expected it would. If that happens, part of you
+is in that machine.”
+
+“Engineers want to produce something,” said Wallach. “I didn’t go to school for six years just to get a paycheck. I
+thought that if this is what engineering’s all about, the hell with it.” He went to night school, to get a master’s in
+business administration. “I was always looking for the buck. I’d get the M.B.A., go back to New York, and make some
+money,” he figured. But he didn’t really want to do that. He wanted to build computers.”
+
+#+END_QUOTE
+
+-----
+
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]
