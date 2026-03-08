@@ -1,0 +1,16 @@
+* jupyterling
+<2026-03-07 Sat>
+
+Teaching programming with notebooks gets unnecessarily confusing when cells are evaluated out of order, the kernel
+crashes, or stalls on an infinite loop.
+
+A little vibe-coding to the rescue, we have [[https://github.com/t0yv0/jupyterling][jupyterling]] (for lack of a better way to say "little jupyter") that
+visualizes where the kernel is at by a little snake icon, and greys out stale results.
+
+Besides Jupyter notebooks, we also tried [[https://marimo.io][marimo]] notebooks in our math circle but unfortunately side-effects and
+Excel-like automated cell updates do not mix well. A confusing moment ensued where Marimo re-evaluated cells against a
+mutable ~x=set()~ causing mathematical nonsense to appear in another cell. Lesson learned - keep it simple.
+
+-----
+
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]

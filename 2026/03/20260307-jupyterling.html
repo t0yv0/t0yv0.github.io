@@ -197,23 +197,33 @@
 </head>
 <body>
 <div id="content" class="content">
-<div id="outline-container-orgdffa970" class="outline-2">
-<h2 id="orgdffa970">Anton's Weblog</h2>
-<div class="outline-text-2" id="text-orgdffa970">
-<ul class="org-ul">
-<li><a href="2026/03/20260307-soul-new-machine.html">Book Review: <i>The Soul of a New Machine</i></a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2026-03-07 Sat&gt;</span></span></li>
-<li><a href="2026/03/20260307-jupyterling.html">jupyterling</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2026-03-07 Sat&gt;</span></span></li>
-<li><a href="2025/11/20251122-llm-tutors.html">llm tutors</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-11-22 Sat&gt;</span></span></li>
-<li><a href="2025/10/20251031-evals.html">evals are not flaky tests</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-10-31 Fri&gt;</span></span></li>
-<li><a href="2025/10/20251010-pledge.html">no llm in writing pledge</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-10-10 Fri&gt;</span></span></li>
-<li><a href="2025/07/20250711-llm.html">llm</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-07-11 Fri&gt;</span></span></li>
-<li><a href="2024/11/20241103-torn-slices.html">Torn slices in Go that defy intuition</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-11-03 Sun&gt;</span></span></li>
-<li><a href="2024/11/20241102-git-spice.html">git-spice</a> <span class="timestamp-wrapper"><span class="timestamp">&lt;2024-11-02 Sat&gt;</span></span></li>
-</ul>
+<div id="outline-container-orgb9ac402" class="outline-2">
+<h2 id="orgb9ac402">jupyterling</h2>
+<div class="outline-text-2" id="text-orgb9ac402">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2026-03-07 Sat&gt;</span></span>
+</p>
+
+<p>
+Teaching programming with notebooks gets unnecessarily confusing when cells are evaluated out of order, the kernel
+crashes, or stalls on an infinite loop.
+</p>
+
+<p>
+A little vibe-coding to the rescue, we have <a href="https://github.com/t0yv0/jupyterling">jupyterling</a> (for lack of a better way to say "little jupyter") that
+visualizes where the kernel is at by a little snake icon, and greys out stale results.
+</p>
+
+<p>
+Besides Jupyter notebooks, we also tried <a href="https://marimo.io">marimo</a> notebooks in our math circle but unfortunately side-effects and
+Excel-like automated cell updates do not mix well. A confusing moment ensued where Marimo re-evaluated cells against a
+mutable <code>x=set()</code> causing mathematical nonsense to appear in another cell. Lesson learned - keep it simple.
+</p>
 
 <hr />
+
 <p>
-<a href="about.html">about</a>
+<a href="../../index.html">index</a> :: <a href="../../about.html">about</a>
 </p>
 </div>
 </div>
