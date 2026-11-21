@@ -1,5 +1,6 @@
 * Anton's Weblog
 
+- [[file:2026/11/20261121-fdtd.org][FDTD: Maxwell's equations on a metal donut]] <2026-11-21 Sat>
 - [[file:2026/03/20260307-soul-new-machine.org][Book Review: /The Soul of a New Machine/]] <2026-03-07 Sat>
 - [[file:2026/03/20260307-jupyterling.org][jupyterling]] <2026-03-07 Sat>
 - [[file:2025/11/20251122-llm-tutors.org][llm tutors]] <2025-11-22 Fri>

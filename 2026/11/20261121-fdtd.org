@@ -1,0 +1,96 @@
+* FDTD: Maxwell's equations on a metal donut
+<2026-11-21 Sat>
+
+Let us use Maxwell's equations to visualize electrodynamic wave propagation. One of the
+simplest computational methods to understand is a finite difference time-domain (FDTD) solver.
+
+The solver approaches the problem very directly. Electric and magnetic fields at every point
+in space are retained in computer memory. At each time step the solver computes a numerical
+estimate of the curl of the H-field (magnetic) to update the E-field (electrical). The H-field
+is updated similarly. What makes this a finite difference method is simply the use of small
+discrete time steps (Δ t) and estimating derivatives by differences in values.
+
+Instead of starting in full 3D generality we look at a 2D simplified problem first where there
+is a "sheet" with X and Y axes for the magnetic field, and the electric field is assumed to be
+perpendicular to this sheet along the Z axis pointing out of the page. The technical term for
+this setup is transverse-magnetic (TMz) mode.
+
+To assist with numerical stability, we use a Yee grid, a neat 1966 trick that samples E and H
+fields at an offset of 1/2 cell width of each other. Time dimension is also offset to
+"leapfrog" at Δt/2.
+
+The derivatives simplify to:
+
+$$ \partial_t E_z = \frac{1}{\varepsilon_0}\left(\partial_x H_y - \partial_y H_x\right) $$
+$$ \partial_t H_x = -\frac{1}{\mu_0}\,\partial_y E_z $$
+$$ \partial_t H_y = \frac{1}{\mu_0}\,\partial_x E_z $$
+
+To make things happen we initiate a sinusoidal wave source, and see how it interacts with a
+metal donut that is modeled as a perfect electric conductor (~Ez = 0~).
+
+Timesteps are chosen fine enough to satisfy 2D Courant–Friedrichs–Lewy (CFL) stability
+condition.
+
+Apple MLX framework takes care of maximizing the performance we get on the M2 GPU cores by
+dropping the computation into a Metal kernel. One eyebrow-raising hack here is calling
+~mx.eval~ occasionally to flush delayed evaluation.
+
+The whole timestep is a single ~@mx.compile~-d function. ~mx.roll~ builds each spatial difference
+by shifting the grid, and ~mx.where~ pins ~Ez = 0~ on metal cells:
+
+#+BEGIN_SRC python
+def _update_h(hx, hy, ez, ch, dl):
+    dez_dy = (mx.roll(ez, -1, axis=1) - ez) / dl
+    dez_dx = (mx.roll(ez, -1, axis=0) - ez) / dl
+    return hx - ch * dez_dy, hy + ch * dez_dx
+
+
+def _update_e(hx, hy, ez, metal, ce, dl):
+    dhy_dx = (hy - mx.roll(hy, 1, axis=0)) / dl
+    dhx_dy = (hx - mx.roll(hx, 1, axis=1)) / dl
+    return mx.where(metal, 0.0, ez + ce * (dhy_dx - dhx_dy))
+
+
+@mx.compile
+def step(hx, hy, ez, metal, src_mask, damp, ce, ch, t):
+    hx, hy = _update_h(hx, hy, ez, ch, dl)
+    ez = _update_e(hx, hy, ez, metal, ce, dl)
+    ez = ez + mx.where(src_mask, amp * ramp * mx.sin(omega * t), 0.0)
+    return hx, hy, ez * damp
+#+END_SRC
+
+Now the videos. Here the electric field ~Ez~ is propagating and scattering off the donut:
+
+#+BEGIN_EXPORT html
+<video controls muted loop playsinline width="320" height="240">
+  <source src="/fdtd/donut-ez.webm" type="video/webm">
+</video>
+#+END_EXPORT
+
+And here is the energy of the field ~Ez²~ - observe the standing wave:
+
+#+BEGIN_EXPORT html
+<video controls muted loop playsinline width="320" height="240">
+  <source src="/fdtd/donut-energy.webm" type="video/webm">
+</video>
+#+END_EXPORT
+
+Finally the two magnetic field components ~Hx~ and ~Hy~, which do NOT behave at all the same:
+
+#+BEGIN_EXPORT html
+<video controls muted loop playsinline width="320" height="240">
+  <source src="/fdtd/donut-hx.webm" type="video/webm">
+</video>
+#+END_EXPORT
+
+#+BEGIN_EXPORT html
+<video controls muted loop playsinline width="320" height="240">
+  <source src="/fdtd/donut-hy.webm" type="video/webm">
+</video>
+#+END_EXPORT
+
+Source: [[https://github.com/t0yv0/t0yv0.github.io/tree/master/fdtd][fdtd/]] on GitHub.
+
+-----
+
+[[file:../../index.org][index]] :: [[file:../../about.org][about]]
