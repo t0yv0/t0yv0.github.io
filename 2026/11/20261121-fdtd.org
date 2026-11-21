@@ -91,6 +91,8 @@ Finally the two magnetic field components ~Hx~ and ~Hy~, which do NOT behave at 
 
 Source: [[https://github.com/t0yv0/t0yv0.github.io/tree/master/fdtd][fdtd/]] on GitHub.
 
+The simulation code was built with DeepSeek Pro AI assistance; the post is human.
+
 -----
 
 [[file:../../index.org][index]] :: [[file:../../about.org][about]]
